@@ -187,7 +187,7 @@ void UI_Mainwindow::navDialReleased()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TRIG:HOLD %e", devparms.triggerholdoff);
+    sprintf(str, ":TRIG:HOLD %f", devparms.triggerholdoff);
 
     set_cue_cmd(str);
   }
@@ -201,7 +201,7 @@ void UI_Mainwindow::navDialReleased()
 
       statusLabel->setText(str);
 
-      sprintf(str, ":TIM:DEL:OFFS %e", devparms.timebasedelayoffset);
+      sprintf(str, ":TIM:DEL:OFFS %f", devparms.timebasedelayoffset);
 
       set_cue_cmd(str);
     }
@@ -1008,7 +1008,7 @@ void UI_Mainwindow::vertScaleDialChanged(int new_pos)
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+  sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
   set_cue_cmd(str);
 
@@ -2860,7 +2860,7 @@ void UI_Mainwindow::chan_probe_001()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2880,7 +2880,7 @@ void UI_Mainwindow::chan_probe_002()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2900,7 +2900,7 @@ void UI_Mainwindow::chan_probe_005()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2920,7 +2920,7 @@ void UI_Mainwindow::chan_probe_01()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2940,7 +2940,7 @@ void UI_Mainwindow::chan_probe_02()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2960,7 +2960,7 @@ void UI_Mainwindow::chan_probe_05()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -2980,7 +2980,7 @@ void UI_Mainwindow::chan_probe_1()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3000,7 +3000,7 @@ void UI_Mainwindow::chan_probe_2()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3020,7 +3020,7 @@ void UI_Mainwindow::chan_probe_5()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3040,7 +3040,7 @@ void UI_Mainwindow::chan_probe_10()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3060,7 +3060,7 @@ void UI_Mainwindow::chan_probe_20()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3080,7 +3080,7 @@ void UI_Mainwindow::chan_probe_50()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3100,7 +3100,7 @@ void UI_Mainwindow::chan_probe_100()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3120,7 +3120,7 @@ void UI_Mainwindow::chan_probe_200()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3140,7 +3140,7 @@ void UI_Mainwindow::chan_probe_500()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3160,7 +3160,7 @@ void UI_Mainwindow::chan_probe_1000()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:PROB %e", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
+  sprintf(str, ":CHAN%i:PROB %f", devparms.activechannel + 1, devparms.chanprobe[devparms.activechannel]);
 
   set_cue_cmd(str);
 }
@@ -3366,7 +3366,7 @@ void UI_Mainwindow::vertOffsetDialClicked(QPoint)
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:OFFS %e", chn + 1, devparms.chanoffset[chn]);
+  sprintf(str, ":CHAN%i:OFFS %f", chn + 1, devparms.chanoffset[chn]);
 
   set_cue_cmd(str);
 }
@@ -3424,7 +3424,7 @@ void UI_Mainwindow::singleButtonClicked()
 {
   statusLabel->setText("Trigger: single");
 
-  set_cue_cmd(":SING");
+  set_cue_cmd(":TRIG:EDGE:SWE SING");
 }
 
 
@@ -3544,7 +3544,7 @@ void UI_Mainwindow::horPosDialClicked(QPoint)
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:DEL:OFFS %e", devparms.timebasedelayoffset);
+    sprintf(str, ":TIM:DEL:OFFS %f", devparms.timebasedelayoffset);
 
     set_cue_cmd(str);
   }
@@ -3560,7 +3560,7 @@ void UI_Mainwindow::horPosDialClicked(QPoint)
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:OFFS %e", devparms.timebaseoffset);
+    sprintf(str, ":TIM:OFFS %f", devparms.timebaseoffset);
 
     set_cue_cmd(str);
   }
@@ -3675,17 +3675,17 @@ void UI_Mainwindow::trigModeButtonClicked()
     case 0: trigModeAutoLed->setValue(true);
             trigModeSingLed->setValue(false);
             statusLabel->setText("Trigger auto");
-            set_cue_cmd(":TRIG:SWE AUTO");
+            set_cue_cmd(":TRIG:EDGE:SWE AUTO");
             break;
     case 1: trigModeNormLed->setValue(true);
             trigModeAutoLed->setValue(false);
             statusLabel->setText("Trigger norm");
-            set_cue_cmd(":TRIG:SWE NORM");
+            set_cue_cmd(":TRIG:EDGE:SWE NORM");
             break;
     case 2: trigModeSingLed->setValue(true);
             trigModeNormLed->setValue(false);
             statusLabel->setText("Trigger single");
-            set_cue_cmd(":TRIG:SWE SING");
+            set_cue_cmd(":TRIG:EDGE:SWE SING");
             break;
   }
 }
@@ -4019,7 +4019,7 @@ void UI_Mainwindow::trigAdjustDialClicked(QPoint)
 
   statusLabel->setText(str);
 
-  sprintf(str, ":TRIG:EDG:LEV %e", devparms.triggeredgelevel[devparms.triggeredgesource]);
+  sprintf(str, ":TRIG:EDG:LEV %f", devparms.triggeredgelevel[devparms.triggeredgesource]);
 
   set_cue_cmd(str);
 }
@@ -4114,15 +4114,15 @@ void UI_Mainwindow::toggle_fft_unit()
     {
       set_cue_cmd(":MATH:FFT:UNIT VRMS");
 
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
 
-      sprintf(str, ":MATH:SCAL %e", devparms.fft_vscale);
+      sprintf(str, ":MATH:SCAL %f", devparms.fft_vscale);
 
       set_cue_cmd(str);
 
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
@@ -4145,15 +4145,15 @@ void UI_Mainwindow::toggle_fft_unit()
     {
       set_cue_cmd(":MATH:FFT:UNIT DB");
 
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
 
-      sprintf(str, ":MATH:SCAL %e", devparms.fft_vscale);
+      sprintf(str, ":MATH:SCAL %f", devparms.fft_vscale);
 
       set_cue_cmd(str);
 
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
@@ -4276,11 +4276,11 @@ void UI_Mainwindow::set_fft_hzdiv(double val)
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HSP %e", devparms.math_fft_hscale);
+    sprintf(str, ":CALC:FFT:HSP %f", devparms.math_fft_hscale);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HSC %e", devparms.math_fft_hscale);
+    sprintf(str, ":MATH:FFT:HSC %f", devparms.math_fft_hscale);
   }
 
   set_cue_cmd(str);
@@ -4301,11 +4301,11 @@ void UI_Mainwindow::select_fft_ctr_5()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 5.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 5.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 5.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 5.0);
   }
 
   set_cue_cmd(str);
@@ -4328,11 +4328,11 @@ void UI_Mainwindow::select_fft_ctr_6()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 6.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 6.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 6.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 6.0);
   }
 
   set_cue_cmd(str);
@@ -4355,11 +4355,11 @@ void UI_Mainwindow::select_fft_ctr_7()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 7.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 7.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 7.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 7.0);
   }
 
   set_cue_cmd(str);
@@ -4382,11 +4382,11 @@ void UI_Mainwindow::select_fft_ctr_8()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 8.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 8.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 8.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 8.0);
   }
 
   set_cue_cmd(str);
@@ -4409,11 +4409,11 @@ void UI_Mainwindow::select_fft_ctr_9()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 9.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 9.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 9.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 9.0);
   }
 
   set_cue_cmd(str);
@@ -4436,11 +4436,11 @@ void UI_Mainwindow::select_fft_ctr_10()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 10.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 10.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 10.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 10.0);
   }
 
   set_cue_cmd(str);
@@ -4463,11 +4463,11 @@ void UI_Mainwindow::select_fft_ctr_11()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 11.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 11.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 11.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 11.0);
   }
 
   set_cue_cmd(str);
@@ -4490,11 +4490,11 @@ void UI_Mainwindow::select_fft_ctr_12()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hscale * 12.0);
+    sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hscale * 12.0);
   }
   else
   {
-    sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hscale * 12.0);
+    sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hscale * 12.0);
   }
 
   set_cue_cmd(str);
@@ -4584,20 +4584,20 @@ void UI_Mainwindow::set_fft_vscale()
   {
     if(devparms.math_fft_unit == 1)
     {
-      sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale);
+      sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale);
 
       set_cue_cmd(str);
     }
     else
     {
-      sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
+      sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
 
       set_cue_cmd(str);
     }
   }
   else
   {
-    sprintf(str, ":MATH:SCAL %e", devparms.fft_vscale);
+    sprintf(str, ":MATH:SCAL %f", devparms.fft_vscale);
 
     set_cue_cmd(str);
   }
@@ -4699,13 +4699,13 @@ void UI_Mainwindow::set_fft_voffset()
 
   if(devparms.modelserie != 1)
   {
-    sprintf(str, ":CALC:FFT:VOFF %e", devparms.fft_voffset);
+    sprintf(str, ":CALC:FFT:VOFF %f", devparms.fft_voffset);
 
     set_cue_cmd(str);
   }
   else
   {
-    sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+    sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
     set_cue_cmd(str);
   }

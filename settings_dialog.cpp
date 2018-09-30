@@ -152,7 +152,7 @@ UI_settings_window::UI_settings_window(QWidget *parnt)
   refreshSpinbox = new QSpinBox(this);
   refreshSpinbox->setGeometry(180, 170, 100, 25);
   refreshSpinbox->setSuffix(" mS");
-  refreshSpinbox->setRange(50, 2000);
+  refreshSpinbox->setRange(20, 2000);
   refreshSpinbox->setSingleStep(10);
   refreshSpinbox->setValue(mainwindow->devparms.screentimerival);
 

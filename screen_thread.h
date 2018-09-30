@@ -116,6 +116,7 @@ private:
   struct tmcdev *device;
 
   struct device_settings *deviceparms;
+  double read_measurement(const char* meas, int chan);
 
   void run();
 

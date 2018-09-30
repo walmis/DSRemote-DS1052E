@@ -32,7 +32,7 @@
 #include <pthread.h>
 
 #include "third_party/kiss_fft/kiss_fftr.h"
-
+#include <QHash>
 
 #define PROGRAM_NAME          "DSRemote"
 #define PROGRAM_VERSION       "0.35_1803191244"
@@ -67,7 +67,7 @@
 #define LABEL_ACTIVE_TRIG         5
 #define LABEL_ACTIVE_FFT          6
 
-#define TMC_GDS_DELAY         10000
+#define TMC_GDS_DELAY         0
 
 #define TMC_CMD_CUE_SZ         1024
 
@@ -242,6 +242,11 @@ struct device_settings
   int wavebufsz;
   double yinc[MAX_CHNS];
   int yor[MAX_CHNS];
+
+  struct {
+      double vavg;
+      double vrms;
+  } measurements[MAX_CHNS];
 
   int screenshot_inv;           // 0=normal, 1=inverted colors
 

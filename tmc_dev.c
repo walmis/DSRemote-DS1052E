@@ -132,7 +132,7 @@ int tmcdev_write(struct tmcdev *dev, const char *cmd)
   buf[MAX_CMD_LEN] = 0;
 
   strcat(buf, "\n");
-
+#if 0
   if(!(!strncmp(buf, ":TRIG:STAT?", 11) ||  /* don't print these commands to the console */
        !strncmp(buf, ":TRIG:SWE?", 10) ||   /* because they are used repeatedly */
        !strncmp(buf, ":WAV:DATA?", 10) ||
@@ -149,8 +149,9 @@ int tmcdev_write(struct tmcdev *dev, const char *cmd)
        !strncmp(buf, ":FUNC:WREC:FMAX?", 16) ||
        !strncmp(buf, ":FUNC:WREP:FCUR?", 16)))
   {
-    printf("tmc_dev write: %s", buf);
-  }
+  #endif
+   // printf("tmc_dev write: %s", buf);
+  //}
 
   if((!strncmp(buf, "*RST", 4)) || (!strncmp(buf, ":AUT", 4)))
   {
@@ -161,10 +162,11 @@ int tmcdev_write(struct tmcdev *dev, const char *cmd)
 
   if(n != (len + 1))
   {
-    printf("tmcdev error: device write error");
+    printf("tmcdev error: device write error\n");
 
     return -1;
   }
+    qry = 1;
 
   if(!qry)
   {
@@ -231,8 +233,8 @@ int tmcdev_read(struct tmcdev *dev)
   dev->sz = 0;
 
   size = read(dev->fd, dev->hdrbuf, MAX_RESP_LEN);
-
-  if((size < 2) || (size > MAX_RESP_LEN))
+  //printf("rd %d\n", size);
+  if((size < 1) || (size > MAX_RESP_LEN))
   {
     dev->hdrbuf[0] = 0;
 

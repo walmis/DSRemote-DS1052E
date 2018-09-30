@@ -29,7 +29,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG += qt
 CONFIG += warn_on
-CONFIG += release
+#@CONFIG += release
 CONFIG += static
 CONFIG += largefile
 

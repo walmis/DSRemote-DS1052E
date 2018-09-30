@@ -224,7 +224,7 @@ void UI_Mainwindow::open_connection()
     goto OC_OUT_ERROR;
   }
 
-  if(strcmp(ptr, "RIGOL TECHNOLOGIES"))
+  if(strcasecmp(ptr, "RIGOL TECHNOLOGIES"))
   {
     snprintf(str, 1024, "Received an unknown identification string from device:\n\n%s\n ", device->buf);
     str[1023] = 0;
@@ -1176,7 +1176,14 @@ void UI_Mainwindow::get_device_model(const char *str)
 
     devparms.modelserie = 1;
   }
+  if(!strcmp(str, "DS1102E"))
+  {
+    devparms.channel_cnt = 2;
 
+    devparms.bandwidth = 100;
+
+    devparms.modelserie = 1;
+  }
   if(!strcmp(str, "DS1104Z-S Plus"))
   {
     devparms.channel_cnt = 4;
@@ -1415,11 +1422,11 @@ void UI_Mainwindow::shift_page_left()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
     else
     {
-      sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
 
     set_cue_cmd(str);
@@ -1525,11 +1532,11 @@ void UI_Mainwindow::shift_page_right()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
     else
     {
-      sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
 
     set_cue_cmd(str);
@@ -1630,11 +1637,11 @@ void UI_Mainwindow::center_trigger()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":CALC:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
     else
     {
-      sprintf(str, ":MATH:FFT:HCEN %e", devparms.math_fft_hcenter);
+      sprintf(str, ":MATH:FFT:HCEN %f", devparms.math_fft_hcenter);
     }
 
     set_cue_cmd(str);
@@ -1731,11 +1738,11 @@ void UI_Mainwindow::zoom_in()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:HSP %e", devparms.math_fft_hscale);
+      sprintf(str, ":CALC:FFT:HSP %f", devparms.math_fft_hscale);
     }
     else
     {
-      sprintf(str, ":MATH:FFT:HSC %e", devparms.math_fft_hscale);
+      sprintf(str, ":MATH:FFT:HSC %f", devparms.math_fft_hscale);
     }
 
     set_cue_cmd(str);
@@ -1803,7 +1810,7 @@ void UI_Mainwindow::zoom_in()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:DEL:SCAL %e", devparms.timebasedelayscale);
+    sprintf(str, ":TIM:DEL:SCAL %f", devparms.timebasedelayscale);
 
     set_cue_cmd(str);
   }
@@ -1852,8 +1859,9 @@ void UI_Mainwindow::zoom_in()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:SCAL %e", devparms.timebasescale);
+    sprintf(str, ":TIM:SCAL %f", devparms.timebasescale);
 
+    
     set_cue_cmd(str);
   }
 
@@ -1902,11 +1910,11 @@ void UI_Mainwindow::zoom_out()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:HSP %e", devparms.math_fft_hscale);
+      sprintf(str, ":CALC:FFT:HSP %f", devparms.math_fft_hscale);
     }
     else
     {
-      sprintf(str, ":MATH:FFT:HSC %e", devparms.math_fft_hscale);
+      sprintf(str, ":MATH:FFT:HSC %f", devparms.math_fft_hscale);
     }
 
     set_cue_cmd(str);
@@ -1952,7 +1960,7 @@ void UI_Mainwindow::zoom_out()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:DEL:SCAL %e", devparms.timebasedelayscale);
+    sprintf(str, ":TIM:DEL:SCAL %f", devparms.timebasedelayscale);
 
     set_cue_cmd(str);
 
@@ -1982,7 +1990,7 @@ void UI_Mainwindow::zoom_out()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TIM:SCAL %e", devparms.timebasescale);
+    sprintf(str, ":TIM:SCAL %f", devparms.timebasescale);
 
     set_cue_cmd(str);
 
@@ -2052,20 +2060,20 @@ void UI_Mainwindow::chan_scale_plus()
     {
       if(devparms.math_fft_unit == 1)
       {
-        sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale);
+        sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale);
 
         set_cue_cmd(str);
       }
       else
       {
-        sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
+        sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
 
         set_cue_cmd(str);
       }
     }
     else
     {
-      sprintf(str, ":MATH:SCAL %e", devparms.fft_vscale);
+      sprintf(str, ":MATH:SCAL %f", devparms.fft_vscale);
 
       set_cue_cmd(str);
     }
@@ -2126,7 +2134,7 @@ void UI_Mainwindow::chan_scale_plus()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+  sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
   set_cue_cmd(str);
 
@@ -2200,7 +2208,7 @@ void UI_Mainwindow::chan_scale_plus_all()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+    sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
     set_cue_cmd(str);
   }
@@ -2265,20 +2273,20 @@ void UI_Mainwindow::chan_scale_minus()
     {
       if(devparms.math_fft_unit == 1)
       {
-        sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale);
+        sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale);
 
         set_cue_cmd(str);
       }
       else
       {
-        sprintf(str, ":CALC:FFT:VSC %e", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
+        sprintf(str, ":CALC:FFT:VSC %f", devparms.fft_vscale / devparms.chanscale[devparms.math_fft_src]);
 
         set_cue_cmd(str);
       }
     }
     else
     {
-      sprintf(str, ":MATH:SCAL %e", devparms.fft_vscale);
+      sprintf(str, ":MATH:SCAL %f", devparms.fft_vscale);
 
       set_cue_cmd(str);
     }
@@ -2346,7 +2354,7 @@ void UI_Mainwindow::chan_scale_minus()
 
   statusLabel->setText(str);
 
-  sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+  sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
   set_cue_cmd(str);
 
@@ -2427,7 +2435,7 @@ void UI_Mainwindow::chan_scale_minus_all()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+    sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
     set_cue_cmd(str);
   }
@@ -2473,13 +2481,13 @@ void UI_Mainwindow::shift_trace_up()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:VOFF %e", devparms.fft_voffset);
+      sprintf(str, ":CALC:FFT:VOFF %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
     else
     {
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
@@ -2581,13 +2589,13 @@ void UI_Mainwindow::shift_trace_down()
 
     if(devparms.modelserie != 1)
     {
-      sprintf(str, ":CALC:FFT:VOFF %e", devparms.fft_voffset);
+      sprintf(str, ":CALC:FFT:VOFF %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
     else
     {
-      sprintf(str, ":MATH:OFFS %e", devparms.fft_voffset);
+      sprintf(str, ":MATH:OFFS %f", devparms.fft_voffset);
 
       set_cue_cmd(str);
     }
@@ -2906,6 +2914,17 @@ void UI_Mainwindow::screenUpdate()
 
     return;
   }
+
+
+  QString s;
+  char tmp[64];
+
+  convert_to_metric_suffix(tmp, devparms.measurements[0].vavg, 2);
+  s.sprintf("%sV", tmp);
+  measureLabels[0]["Vavg"]->setText(s);
+
+
+
 
 //  if(devparms.triggerstatus != 1)  // Don't plot waveform data when triggerstatus is "wait"
   if(1)

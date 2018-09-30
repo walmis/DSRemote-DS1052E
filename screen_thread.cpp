@@ -42,6 +42,16 @@ void screen_thread::set_device(struct tmcdev *tmdev)
   device = tmdev;
 }
 
+double screen_thread::read_measurement(const char* meas, int chan) {
+    char buf[64];
+    sprintf(buf, ":MEAS:%s? CHAN%d", meas, chan);
+
+    tmc_write(buf);
+
+    if(tmc_read() < 1) return NAN;
+
+    return atof(device->buf);
+}
 
 screen_thread::screen_thread()
 {
@@ -178,8 +188,8 @@ int screen_thread::get_devicestatus()
     line = __LINE__;
     goto OUT_ERROR;
   }
-
-  if(!strcmp(device->buf, "TD"))
+printf("T %s\n", device->buf);
+  if(!strcmp(device->buf, "T'D"))
   {
     params.triggerstatus = 0;
   }
@@ -211,11 +221,8 @@ int screen_thread::get_devicestatus()
 
   usleep(TMC_GDS_DELAY);
 
-  if(tmc_write(":TRIG:SWE?") != 10)
-  {
-    line = __LINE__;
-    goto OUT_ERROR;
-  }
+  tmc_write(":TRIG:EDGE:SWE?");
+
 
   if(tmc_read() < 1)
   {
@@ -227,11 +234,11 @@ int screen_thread::get_devicestatus()
   {
     params.triggersweep = 0;
   }
-  else if(!strcmp(device->buf, "NORM"))
+  else if(!strcmp(device->buf, "NORMAL"))
     {
       params.triggersweep = 1;
     }
-    else if(!strcmp(device->buf, "SING"))
+    else if(!strcmp(device->buf, "SINGLE"))
       {
         params.triggersweep = 2;
       }
@@ -272,7 +279,7 @@ int screen_thread::get_devicestatus()
   }
 
   params.memdepth = atoi(device->buf);
-
+#if 0
   if(params.countersrc)
   {
     usleep(TMC_GDS_DELAY);
@@ -291,7 +298,7 @@ int screen_thread::get_devicestatus()
 
     params.counterfreq = atof(device->buf);
   }
-
+#endif
   if(params.func_wrec_enable)
   {
     usleep(TMC_GDS_DELAY);
@@ -679,8 +686,8 @@ void screen_thread::run()
   params.result = TMC_THRD_RESULT_SCRN;
 
 //struct waveform_preamble wfp;
-
-//  if(params.triggerstatus != 1)  // Don't download waveform data when triggerstatus is "wait"
+//printf("t %d\n", params.triggerstatus);
+  //if(params.triggerstatus != 1 && params.triggerstatus != 5)  // Don't download waveform data when triggerstatus is "wait"
   if(1)
   {
     for(i=0; i<MAX_CHNS; i++)
@@ -730,7 +737,7 @@ void screen_thread::run()
 //     rec_len = wfp.xincrement[i] * wfp.points;
 
 ///////////////////////////////////////////////////////////
-
+#if 0
       sprintf(str, ":WAV:SOUR CHAN%i", i + 1);
 
       if(tmc_write(str) != 15)
@@ -746,20 +753,11 @@ void screen_thread::run()
         line = __LINE__;
         goto OUT_ERROR;
       }
-
-      if(tmc_write(":WAV:MODE NORM") != 14)
-      {
-        printf("Can not write to device.\n");
-        line = __LINE__;
-        goto OUT_ERROR;
-      }
-
-      if(tmc_write(":WAV:DATA?") != 10)
-      {
-        printf("Can not write to device.\n");
-        line = __LINE__;
-        goto OUT_ERROR;
-      }
+#endif
+      tmc_write(":WAV:POIN:MODE NORM");
+      
+      sprintf(str, ":WAV:DATA? CHAN%i", i + 1);
+      tmc_write(str);
 
       n = tmc_read();
 
@@ -781,12 +779,17 @@ void screen_thread::run()
       {
         n = 0;
       }
-
+      
+        int x = 0;
       for(j=0; j<n; j++)
       {
-        params.wavebuf[i][j] = (int)(((unsigned char *)device->buf)[j]) - 127;
+        int v = (int)(((unsigned char *)device->buf)[j])*-1 + 125 ;
+        params.wavebuf[i][x++] = v;
+        params.wavebuf[i][x++] = v;
+        //printf("%d\n", params.wavebuf[i][j]);
       }
-
+      n = n*2;
+      
       if((n == (params.fftbufsz * 2)) && (params.math_fft == 1) && (i == params.math_fft_src))
       {
         if(params.modelserie == 6)
@@ -841,7 +844,14 @@ void screen_thread::run()
           }
         }
       }
+
+      //double vavg = read_measurement("VAV", 0);
+      //double vrms = read_measurement("VRMS", 0);
+      //printf("%f %f\n", vavg, vrms);
+      deviceparms->measurements[i].vavg = read_measurement("VAV", i);
+      deviceparms->measurements[i].vrms = read_measurement("VRMS", i);
     }
+
 
     params.wavebufsz = n;
   }
@@ -849,6 +859,9 @@ void screen_thread::run()
   {
     params.wavebufsz = 0;
   }
+
+
+
 
   h_busy = 0;
 

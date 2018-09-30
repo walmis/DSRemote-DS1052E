@@ -1813,7 +1813,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
 
       if(devparms->modelserie == 1)
       {
-        sprintf(str, ":MATH:OFFS %e", devparms->fft_voffset);
+        sprintf(str, ":MATH:OFFS %f", devparms->fft_voffset);
 
         mainwindow->set_cue_cmd(str);
       }
@@ -1887,7 +1887,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
 
       mainwindow->statusLabel->setText(str);
 
-      sprintf(str, ":TIM:DEL:OFFS %e", devparms->timebasedelayoffset);
+      sprintf(str, ":TIM:DEL:OFFS %f", devparms->timebasedelayoffset);
 
       mainwindow->set_cue_cmd(str);
     }
@@ -1907,7 +1907,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
 
       mainwindow->statusLabel->setText(str);
 
-      sprintf(str, ":TIM:OFFS %e", devparms->timebaseoffset);
+      sprintf(str, ":TIM:OFFS %f", devparms->timebaseoffset);
 
       mainwindow->set_cue_cmd(str);
     }
@@ -1931,7 +1931,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
         trig_level_arrow_pos = h;
       }
 
-  //       printf("chanoffset[chn] is: %e   chanscale[chn] is %e   trig_level_arrow_pos is: %i   v_sense is: %e\n",
+  //       printf("chanoffset[chn] is: %f   chanscale[chn] is %f   trig_level_arrow_pos is: %i   v_sense is: %f\n",
   //              devparms->chanoffset[chn], devparms->chanscale[chn], trig_level_arrow_pos, v_sense);
 
       devparms->triggeredgelevel[devparms->triggeredgesource] = (((h / 2) - trig_level_arrow_pos) * ((devparms->chanscale[devparms->triggeredgesource] * devparms->vertdivisions) / h))
@@ -1949,7 +1949,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
 
       mainwindow->statusLabel->setText(str);
 
-      sprintf(str, ":TRIG:EDG:LEV %e", devparms->triggeredgelevel[devparms->triggeredgesource]);
+      sprintf(str, ":TRIG:EDG:LEV %f", devparms->triggeredgelevel[devparms->triggeredgesource]);
 
       mainwindow->set_cue_cmd(str);
 
@@ -1978,7 +1978,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
             chan_arrow_pos[chn] = h;
           }
 
-    //       printf("chanoffset[chn] is: %e   chanscale[chn] is %e   chan_arrow_pos[chn] is: %i   v_sense is: %e\n",
+    //       printf("chanoffset[chn] is: %f   chanscale[chn] is %f   chan_arrow_pos[chn] is: %i   v_sense is: %f\n",
     //              devparms->chanoffset[chn], devparms->chanscale[chn], chan_arrow_pos[chn], v_sense);
 
           devparms->chanoffset[chn] = ((h / 2) - chan_arrow_pos[chn]) * ((devparms->chanscale[chn] * devparms->vertdivisions) / h);
@@ -1995,7 +1995,7 @@ void SignalCurve::mouseReleaseEvent(QMouseEvent *release_event)
 
           mainwindow->statusLabel->setText(str);
 
-          sprintf(str, ":CHAN%i:OFFS %e", chn + 1, devparms->chanoffset[chn]);
+          sprintf(str, ":CHAN%i:OFFS %f", chn + 1, devparms->chanoffset[chn]);
 
           mainwindow->set_cue_cmd(str);
 

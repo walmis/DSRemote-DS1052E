@@ -84,7 +84,7 @@ void UI_Mainwindow::adjdial_timer_handler()
 
     statusLabel->setText(str);
 
-    sprintf(str, ":TRIG:HOLD %e", devparms.triggerholdoff);
+    sprintf(str, ":TRIG:HOLD %f", devparms.triggerholdoff);
 
     set_cue_cmd(str);
 
@@ -130,6 +130,7 @@ void UI_Mainwindow::scrn_timer_handler()
 
   scrn_thread->set_params(&devparms);
 
+
   scrn_thread->start();
 }
 
@@ -140,11 +141,11 @@ void UI_Mainwindow::horPosDial_timer_handler()
 
   if(devparms.timebasedelayenable)
   {
-    sprintf(str, ":TIM:DEL:OFFS %e", devparms.timebasedelayoffset);
+    sprintf(str, ":TIM:DEL:OFFS %f", devparms.timebasedelayoffset);
   }
   else
   {
-    sprintf(str, ":TIM:OFFS %e", devparms.timebaseoffset);
+    sprintf(str, ":TIM:OFFS %f", devparms.timebaseoffset);
   }
 
   set_cue_cmd(str);
@@ -164,7 +165,7 @@ void UI_Mainwindow::trigAdjDial_timer_handler()
     return;
   }
 
-  sprintf(str, ":TRIG:EDG:LEV %e", devparms.triggeredgelevel[chn]);
+  sprintf(str, ":TRIG:EDG:LEV %f", devparms.triggeredgelevel[chn]);
 
   set_cue_cmd(str);
 }
@@ -183,7 +184,7 @@ void UI_Mainwindow::vertOffsDial_timer_handler()
 
   chn = devparms.activechannel;
 
-  sprintf(str, ":CHAN%i:OFFS %e", chn + 1, devparms.chanoffset[chn]);
+  sprintf(str, ":CHAN%i:OFFS %f", chn + 1, devparms.chanoffset[chn]);
 
   set_cue_cmd(str);
 }
@@ -195,11 +196,11 @@ void UI_Mainwindow::horScaleDial_timer_handler()
 
   if(devparms.timebasedelayenable)
   {
-    sprintf(str, ":TIM:DEL:SCAL %e", devparms.timebasedelayscale);
+    sprintf(str, ":TIM:DEL:SCAL %f", devparms.timebasedelayscale);
   }
   else
   {
-    sprintf(str, ":TIM:SCAL %e", devparms.timebasescale);
+    sprintf(str, ":TIM:SCAL %f", devparms.timebasescale);
   }
 
   set_cue_cmd(str);
@@ -219,7 +220,7 @@ void UI_Mainwindow::vertScaleDial_timer_handler()
 
   chn = devparms.activechannel;
 
-  sprintf(str, ":CHAN%i:SCAL %e", chn + 1, devparms.chanscale[chn]);
+  sprintf(str, ":CHAN%i:SCAL %f", chn + 1, devparms.chanscale[chn]);
 
   set_cue_cmd(str);
 }

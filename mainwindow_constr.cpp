@@ -420,6 +420,26 @@ UI_Mainwindow::UI_Mainwindow()
   dockPanelRight->setMinimumHeight(400);
   addDockWidget(Qt::RightDockWidgetArea, dockPanelRight);
 
+  dockPanelRightMeas = new QDockWidget(this);
+  dockPanelRightMeas->setFeatures(QDockWidget::DockWidgetFloatable);
+  dockPanelRightMeas->setAllowedAreas(Qt::RightDockWidgetArea);
+
+  measureLabels[0]["Vavg"] = new QLabel("-");
+  measureLabels[0]["Vrms"] = new QLabel("-");
+
+  auto w = new QWidget();
+  auto l = new QGridLayout();
+  l->setObjectName("layout");
+
+  l->addWidget(new QLabel("Vavg"), 0, 0);
+  l->addWidget(measureLabels[0]["Vavg"], 0, 1);
+
+
+  w->setLayout(l);
+  dockPanelRightMeas->setWidget(w);
+  addDockWidget(Qt::RightDockWidgetArea, dockPanelRightMeas);
+
+
   former_page_act = new QAction(this);
   former_page_act->setShortcut(QKeySequence::MoveToPreviousPage);
   connect(former_page_act, SIGNAL(triggered()), this, SLOT(former_page()));

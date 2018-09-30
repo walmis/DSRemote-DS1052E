@@ -171,8 +171,9 @@ void read_settings_thread::run()
       line = __LINE__;
       goto GDS_OUT_ERROR;
     }
-
-    if(tmc_read() < 1)
+    int i = tmc_read();
+    printf("rd %d\n", i);
+    if(i < 1)
     {
       line = __LINE__;
       goto GDS_OUT_ERROR;
@@ -246,11 +247,11 @@ void read_settings_thread::run()
       goto GDS_OUT_ERROR;
     }
 
-    if(!strcmp(device->buf, "0"))
+    if(!strcmp(device->buf, "0") || !strcmp(device->buf, "OFF"))
     {
       devparms->chaninvert[chn] = 0;
     }
-    else if(!strcmp(device->buf, "1"))
+    else if(!strcmp(device->buf, "1") || !strcmp(device->buf, "ON"))
       {
         devparms->chaninvert[chn] = 1;
       }
@@ -295,7 +296,7 @@ void read_settings_thread::run()
     }
 
     devparms->chanprobe[chn] = atof(device->buf);
-
+#if 0
     sprintf(str, ":CHAN%i:UNIT?", chn + 1);
 
     usleep(TMC_GDS_DELAY);
@@ -332,7 +333,7 @@ void read_settings_thread::run()
           {
             devparms->chanunit[chn] = 0;
           }
-
+#endif
     sprintf(str, ":CHAN%i:SCAL?", chn + 1);
 
     usleep(TMC_GDS_DELAY);
@@ -367,11 +368,11 @@ void read_settings_thread::run()
       goto GDS_OUT_ERROR;
     }
 
-    if(!strcmp(device->buf, "0"))
+    if(!strcmp(device->buf, "0")|| !strcmp(device->buf, "Coarse"))
     {
       devparms->chanvernier[chn] = 0;
     }
-    else if(!strcmp(device->buf, "1"))
+    else if(!strcmp(device->buf, "1") )
       {
         devparms->chanvernier[chn] = 1;
       }
@@ -415,7 +416,7 @@ void read_settings_thread::run()
   devparms->timebasescale = atof(device->buf);
 
   usleep(TMC_GDS_DELAY);
-
+#if 0
   if(tmc_write(":TIM:DEL:ENAB?") != 14)
   {
     line = __LINE__;
@@ -443,7 +444,7 @@ void read_settings_thread::run()
     }
 
   usleep(TMC_GDS_DELAY);
-
+#endif
   if(tmc_write(":TIM:DEL:OFFS?") != 14)
   {
     line = __LINE__;
@@ -649,11 +650,8 @@ void read_settings_thread::run()
 
   usleep(TMC_GDS_DELAY);
 
-  if(tmc_write(":TRIG:COUP?") != 11)
-  {
-    line = __LINE__;
-    goto GDS_OUT_ERROR;
-  }
+  tmc_write(":TRIG:EDGE:COUP?");
+
 
   if(tmc_read() < 1)
   {
@@ -685,11 +683,8 @@ void read_settings_thread::run()
 
   usleep(TMC_GDS_DELAY);
 
-  if(tmc_write(":TRIG:SWE?") != 10)
-  {
-    line = __LINE__;
-    goto GDS_OUT_ERROR;
-  }
+  tmc_write(":TRIG:EDGE:SWE?");
+
 
   if(tmc_read() < 1)
   {
@@ -701,11 +696,11 @@ void read_settings_thread::run()
   {
     devparms->triggersweep = 0;
   }
-  else if(!strcmp(device->buf, "NORM"))
+  else if(!strcmp(device->buf, "NORMAL"))
     {
       devparms->triggersweep = 1;
     }
-    else if(!strcmp(device->buf, "SING"))
+    else if(!strcmp(device->buf, "SINGLE"))
       {
         devparms->triggersweep = 2;
       }
@@ -789,7 +784,7 @@ void read_settings_thread::run()
     goto GDS_OUT_ERROR;
   }
 
-  if(!strcmp(device->buf, "TD"))
+  if(!strcmp(device->buf, "T'D") || !strcmp(device->buf, "SINGLE"))
   {
     devparms->triggerstatus = 0;
   }
@@ -833,11 +828,11 @@ void read_settings_thread::run()
     goto GDS_OUT_ERROR;
   }
 
-  if(!strcmp(device->buf, "POS"))
+  if(!strcmp(device->buf, "POS") || !strcmp(device->buf, "POSITIVE"))
   {
     devparms->triggeredgeslope = 0;
   }
-  else if(!strcmp(device->buf, "NEG"))
+  else if(!strcmp(device->buf, "NEG") || !strcmp(device->buf, "NEGATIVE"))
     {
       devparms->triggeredgeslope = 1;
     }
@@ -865,19 +860,19 @@ void read_settings_thread::run()
     goto GDS_OUT_ERROR;
   }
 
-  if(!strcmp(device->buf, "CHAN1"))
+  if(!strcmp(device->buf, "CHAN1") || !strcmp(device->buf, "CH1"))
   {
     devparms->triggeredgesource = 0;
   }
-  else if(!strcmp(device->buf, "CHAN2"))
+  else if(!strcmp(device->buf, "CHAN2") || !strcmp(device->buf, "CH2"))
     {
       devparms->triggeredgesource = 1;
     }
-    else if(!strcmp(device->buf, "CHAN3"))
+    else if(!strcmp(device->buf, "CHAN3") || !strcmp(device->buf, "CH3"))
       {
         devparms->triggeredgesource = 2;
       }
-      else if(!strcmp(device->buf, "CHAN4"))
+      else if(!strcmp(device->buf, "CHAN4") || !strcmp(device->buf, "CH4"))
         {
           devparms->triggeredgesource = 3;
         }
@@ -905,11 +900,7 @@ void read_settings_thread::run()
 
     usleep(TMC_GDS_DELAY);
 
-    if(tmc_write(str) != 20)
-    {
-      line = __LINE__;
-      goto GDS_OUT_ERROR;
-    }
+    tmc_write(str);
 
     usleep(TMC_GDS_DELAY);
 
@@ -934,11 +925,7 @@ void read_settings_thread::run()
 
     usleep(TMC_GDS_DELAY);
 
-    if(tmc_write(str) != 20)
-    {
-      line = __LINE__;
-      goto GDS_OUT_ERROR;
-    }
+    tmc_write(str);
   }
 
   if(devparms->triggeredgesource== 4)
@@ -1040,11 +1027,8 @@ void read_settings_thread::run()
 
   usleep(TMC_GDS_DELAY);
 
-  if(tmc_write(":MEAS:COUN:SOUR?") != 16)
-  {
-    line = __LINE__;
-    goto GDS_OUT_ERROR;
-  }
+  tmc_write(":MEAS:SOUR?");
+
 
   if(tmc_read() < 1)
   {
@@ -1056,24 +1040,25 @@ void read_settings_thread::run()
   {
     devparms->countersrc = 0;
   }
-  else if(!strcmp(device->buf, "CHAN1"))
+  else if(!strcmp(device->buf, "CH1"))
     {
       devparms->countersrc = 1;
     }
-    else if(!strcmp(device->buf, "CHAN2"))
+    else if(!strcmp(device->buf, "CH2"))
       {
         devparms->countersrc = 2;
       }
-      else if(!strcmp(device->buf, "CHAN3"))
+      else if(!strcmp(device->buf, "CH3"))
         {
           devparms->countersrc = 3;
         }
-        else if(!strcmp(device->buf, "CHAN4"))
+        else if(!strcmp(device->buf, "CH4"))
           {
             devparms->countersrc = 4;
           }
           else
           {
+            printf("Data: %s\n", device->buf);
             line = __LINE__;
             goto GDS_OUT_ERROR;
           }
@@ -1092,7 +1077,7 @@ void read_settings_thread::run()
     goto GDS_OUT_ERROR;
   }
 
-  if(!strcmp(device->buf, "VECT"))
+  if(!strcmp(device->buf, "VECTORS"))
   {
     devparms->displaytype = 0;
   }
@@ -1119,16 +1104,16 @@ void read_settings_thread::run()
     line = __LINE__;
     goto GDS_OUT_ERROR;
   }
-
-  if(!strcmp(device->buf, "NORM"))
+            printf("Data: %s\n", device->buf);
+  if(!strcmp(device->buf, "NORMAL"))
   {
     devparms->acquiretype = 0;
   }
-  else if(!strcmp(device->buf, "AVER"))
+  else if(!strcmp(device->buf, "AVERAGE"))
     {
       devparms->acquiretype = 1;
     }
-    else if(!strcmp(device->buf, "PEAK"))
+    else if(!strcmp(device->buf, "PEAKDETECT"))
       {
         devparms->acquiretype = 2;
       }
@@ -1159,7 +1144,7 @@ void read_settings_thread::run()
   devparms->acquireaverages = atoi(device->buf);
 
   usleep(TMC_GDS_DELAY);
-
+#if 0
   if(tmc_write(":DISP:GRAD:TIME?") != 16)
   {
     line = __LINE__;
@@ -1211,7 +1196,8 @@ void read_settings_thread::run()
                 }
 
   usleep(TMC_GDS_DELAY);
-
+#endif
+#if 0
   if(devparms->modelserie != 1)
   {
     if(tmc_write(":CALC:FFT:SPL?") != 14)
@@ -1236,7 +1222,7 @@ void read_settings_thread::run()
   }
 
   devparms->math_fft_split = atoi(device->buf);
-
+#endif
   usleep(TMC_GDS_DELAY);
 
   if(devparms->modelserie != 1)
@@ -1306,7 +1292,7 @@ void read_settings_thread::run()
   }
 
   usleep(TMC_GDS_DELAY);
-
+#if 0
   if(devparms->modelserie != 1)
   {
     if(tmc_write(":CALC:FFT:VSM?") != 14)
@@ -2782,13 +2768,13 @@ void read_settings_thread::run()
 
     devparms->func_wplay_fcur = atoi(device->buf);
   }
-
+#endif
   err_num = 0;
 
   return;
 
 GDS_OUT_ERROR:
-
+    printf("Device buf: %s\n", device->buf);
   snprintf(err_str, 4095,
            "An error occurred while reading settings from device.\n"
            "File %s line %i", __FILE__, line);

@@ -165,6 +165,9 @@ private:
                *ch4InputLabel;
 
   QDockWidget *dockPanelRight;
+  QDockWidget *dockPanelRightMeas;
+
+ QHash<QString, QLabel*> measureLabels[2];
 
   QWidget     *DPRwidget;
 

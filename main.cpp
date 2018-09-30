@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 //  app.setAttribute(Qt::AA_DontUseNativeMenuBar);
 
 #if QT_VERSION >= 0x050000
-  qApp->setStyle(QStyleFactory::create("Fusion"));
+  //qApp->setStyle(QStyleFactory::create("Fusion"));
 #endif
   qApp->setStyleSheet("QLabel, QMessageBox { messagebox-text-interaction-flags: 5; }");
 
